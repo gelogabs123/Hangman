@@ -1,0 +1,10 @@
+.display { 
+	display: flex; 
+	flex-direction: row; 
+	align-items: center; 
+}
+
+#title {
+    font-weight: 200;
+    text-align: center;
+}
