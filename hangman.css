@@ -1,10 +1,74 @@
+
+
+h1 {
+	font-size: 48px;
+	color: #000000; /* Black text */
+	text-align: center;
+	text-transform: uppercase; /* Uppercase text */
+	letter-spacing: 3px; /* Letter spacing */
+	text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Text shadow */
+	padding: 20px; /* Padding around text */
+	background-color: #ffffff; /* White background behind text */
+	border-radius: 10px; /* Rounded corners */
+	font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+}
+
+
 .display { 
 	display: flex; 
 	flex-direction: row; 
 	align-items: center; 
 }
 
+
 #title {
     font-weight: 200;
     text-align: center;
 }
+
+.keyboard {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+}
+
+#keyboard-row1 {
+	display: flex;
+    gap: 10px; /* Adjust the gap between buttons */
+	justify-content: center;
+	align-items: center;
+}
+
+#keyboard-row2 {
+	display: flex;
+    gap: 10px; /* Adjust the gap between buttons */
+	justify-content: center;
+	align-items: center;
+}
+
+#keyboard-row3 {
+	display: flex;
+    gap: 10px; /* Adjust the gap between buttons */
+	justify-content: center;
+	align-items: center;
+}
+
+.keyboard button {
+	position: relative;
+	padding: 10px 22px;
+	border-radius: 6px;
+	border: none;
+	color: #fff;
+	cursor: pointer;
+	background-color: #7d2ae8;
+	transition: all 0.2s ease;
+  }
+  
+.keyboard button:active {
+	transform: scale(0.96);
+  }
+  
+.keyboard button:disabled {
+	background-color: grey;
+}
+  

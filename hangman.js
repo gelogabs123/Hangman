@@ -7,10 +7,25 @@ var words = [
         ['i','g','u','a','n','a']
     ];
 
+var images = [
+    "images/Hangman_1.png",
+    "images/Hangman_2.png",
+    "images/Hangman_3.png",
+    "images/Hangman_4.png",
+    "images/Hangman_5.png",
+    "images/Hangman_6.png",
+    "images/Hangman_7.png",
+    "images/Hangman_8.png"
+]
+
 const HangmanGame = {
     // Word to be guessed
     secretWord: "",
     displayWord: "",
+    imageIndex: 0,
+    secretWordLength: 0,
+    numLettersFilled: 0,
+
 
     /**
      * Initialises the secret word and word display for the game
@@ -19,6 +34,9 @@ const HangmanGame = {
     init: function(word) {
         this.secretWord = word;
         this.displayWord = this.convertWordToBlank(this.secretWord);
+        this.imageIndex = 0;
+        this.secretWordLength = this.secretWord.length;
+        this.numLettersFilled = 0;
     },
 
     /**
@@ -28,6 +46,33 @@ const HangmanGame = {
     startGame: function() {
         this.init(this.generateWord());
         this.displayWordOnUI();
+    },
+    
+    endGame: function() {
+        this.disableKeyboard();
+        document.getElementById("results-display").innerHTML = "You lose :( the word was " + this.secretWord;
+    },
+
+    checkForWin: function() {
+        if (this.numLettersFilled === this.secretWordLength) {
+            this.disableKeyboard();
+            document.getElementById("results-display").innerHTML = " YOU WIN!!! :) "
+
+        }
+    },
+
+    disableKeyboard: function() {
+        let row1 = document.getElementById("keyboard-row1");
+        let row2 = document.getElementById("keyboard-row2");
+        let row3 = document.getElementById("keyboard-row3");
+        let rows = [row1, row2, row3];
+
+        for (var rowIndex = 0; rowIndex < rows.length; rowIndex++) {
+            let buttons = rows[rowIndex].getElementsByTagName("button");
+            for (var i = 0; i < buttons.length; i++) {
+                buttons[i].disabled = true;
+            }
+        }
     },
 
     /**
@@ -69,11 +114,22 @@ const HangmanGame = {
             // Reveals the correct letter in the display if letter is correct
             this.revealCorrectLetters(letter);
             this.displayWordOnUI();
+            this.checkForWin();
         } else {
             // Hangman gets closer to losing 
+            this.changeHangmanImage();
+            if (this.imageIndex >= images.length - 1) {
+                this.endGame();
+            }
+
         }
         // Button is used
         this.clearLetter(letterBtn);
+    },
+
+    changeHangmanImage: function() {
+        this.imageIndex += 1;
+        document.getElementById("image").src = images[this.imageIndex];
     },
 
     /**
@@ -90,6 +146,7 @@ const HangmanGame = {
         //Reveal the letter
         for (let i = 0; i < correctIndexes.length; i++) {
             this.displayWord[correctIndexes[i]] = letter;
+            this.numLettersFilled += 1;
         }
     },
 
@@ -99,7 +156,12 @@ const HangmanGame = {
      */
     clearLetter: function(letterBtn) {
         letterBtn.disabled = true;
-    }
+    },
+
+    
+
+
+
 
 }
 
